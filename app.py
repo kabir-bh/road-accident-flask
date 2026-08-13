@@ -75,7 +75,16 @@ def get_forecast(state_name):
         interval_width=0.95
     )
     model.fit(state_data)
-    future = model.make_future_dataframe(periods=4, freq='A')
+
+    # Handle pandas version differences
+    try:
+        future = model.make_future_dataframe(periods=4, freq='YE')
+    except ValueError:
+        try:
+            future = model.make_future_dataframe(periods=4, freq='Y')
+        except ValueError:
+            future = model.make_future_dataframe(periods=4, freq='A')
+
     forecast = model.predict(future)
     return state_data, forecast
 
