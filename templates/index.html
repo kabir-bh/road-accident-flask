@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-1">India Road Accident Dashboard</h2>
+<p class="text-muted mb-4">MoRTH Data — 2019 to 2023 | 40+ States & UTs</p>
+
+<!-- Headline Stats -->
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-number">{{ total_2023 }}</div>
+      <div class="stat-label">Total Accidents (2023)</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-number">{{ total_fatalities_2023 }}</div>
+      <div class="stat-label">Total Fatalities (2023)</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card danger">
+      <div class="stat-number">{{ no_helmet_killed }}</div>
+      <div class="stat-label">Deaths Without Helmet (2023)</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card warning">
+      <div class="stat-number">{{ two_wheeler_pct }}%</div>
+      <div class="stat-label">Fatalities — Two-Wheelers</div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="card mb-4">
+  <div class="card-body">{{ national_chart | safe }}</div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">{{ top10_chart | safe }}</div>
+</div>
+
+<!-- Quick state lookup -->
+<div class="card mb-4">
+  <div class="card-body">
+    <h5>Explore a State</h5>
+    <form action="/state" method="POST" class="d-flex gap-2">
+      <select name="state" class="form-select w-auto">
+        {% for s in states %}
+        <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-primary">View State →</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

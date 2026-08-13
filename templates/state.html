@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">State Explorer</h2>
+
+<form action="/state" method="POST" class="mb-4 d-flex gap-2">
+  <select name="state" class="form-select w-auto">
+    {% for s in states %}
+    <option value="{{ s }}" {% if s == selected %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-primary">Explore →</button>
+</form>
+
+<!-- Key Stats -->
+<div class="row g-3 mb-4">
+  <div class="col-md-2">
+    <div class="stat-card">
+      <div class="stat-number small-num">{{ stats.accidents_2023 }}</div>
+      <div class="stat-label">Accidents (2023)</div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="stat-card danger">
+      <div class="stat-number small-num">{{ stats.fatalities_2023 }}</div>
+      <div class="stat-label">Fatalities (2023)</div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="stat-card warning">
+      <div class="stat-number small-num">{{ stats.fatality_rate_2023 }}</div>
+      <div class="stat-label">Fatality Rate</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-number small-num">{{ stats.pct_change }}</div>
+      <div class="stat-label">Change Since 2019</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-number small-num">{{ stats.forecast_2026 }}</div>
+      <div class="stat-label">Forecast 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="card mb-4">
+  <div class="card-body">{{ trend_chart | safe }}</div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">{{ rate_chart | safe }}</div>
+</div>
+<div class="card mb-4">
+  <div class="card-header fw-bold">Prophet Forecast — 2024 to 2026</div>
+  <div class="card-body text-center">
+    <img src="data:image/png;base64,{{ forecast_img }}" class="img-fluid">
+  </div>
+</div>
+
+{% endblock %}

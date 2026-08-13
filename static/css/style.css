@@ -1,0 +1,50 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar {
+  background-color: #2e7d9e;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-left: 4px solid #2e7d9e;
+  height: 100%;
+}
+
+.stat-card.danger { border-left-color: #dc3545; }
+.stat-card.warning { border-left-color: #fd7e14; }
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2e7d9e;
+}
+
+.stat-number.small-num { font-size: 1.4rem; }
+.stat-card.danger .stat-number { color: #dc3545; }
+.stat-card.warning .stat-number { color: #fd7e14; }
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 4px;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 10px;
+}
+
+footer {
+  color: #6c757d;
+  border-top: 1px solid #dee2e6;
+}
+
+footer a { color: #2e7d9e; text-decoration: none; }

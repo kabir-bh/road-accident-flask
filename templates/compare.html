@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Compare States</h2>
+
+<form action="/compare" method="POST" class="mb-4">
+  <label class="form-label">Select up to 3 states:</label>
+  <div class="d-flex gap-2 flex-wrap">
+    {% for s in states %}
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="states"
+             value="{{ s }}" id="{{ s }}"
+             {% if s in selected_states %}checked{% endif %}
+             onchange="limitCheckboxes(this)">
+      <label class="form-check-label" for="{{ s }}">{{ s }}</label>
+    </div>
+    {% endfor %}
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Compare →</button>
+</form>
+
+<div class="card mb-4">
+  <div class="card-body">{{ compare_chart | safe }}</div>
+</div>
+
+<!-- Forecast table -->
+<div class="card mb-4">
+  <div class="card-header fw-bold">Forecast Comparison — 2026</div>
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>State</th>
+          <th>2023 Actual</th>
+          <th>2026 Forecast</th>
+          <th>Projected Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in forecast_data %}
+        <tr>
+          <td>{{ row.state }}</td>
+          <td>{{ row.actual_2023 }}</td>
+          <td>{{ row.forecast_2026 }}</td>
+          <td class="{{ 'text-danger' if '+' in row.change else 'text-success' }}">
+            {{ row.change }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function limitCheckboxes(el) {
+  const checked = document.querySelectorAll('input[name="states"]:checked');
+  if (checked.length > 3) {
+    el.checked = false;
+    alert('Select maximum 3 states');
+  }
+}
+</script>
+{% endblock %}
