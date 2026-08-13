@@ -99,7 +99,7 @@ def index():
     ))
     fig_national.update_layout(
         title='India Road Accidents & Fatalities — National Trend 2019–2023',
-        yaxis=dict(title='Total Accidents', title_ont=dict(color='steelblue')),
+        yaxis=dict(title='Total Accidents', title_font=dict(color='steelblue')),
         yaxis2=dict(title='Total Fatalities', title_font=dict(color='crimson'),
                     overlaying='y', side='right'),
         legend=dict(x=0.01, y=0.99),
